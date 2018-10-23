@@ -1,24 +1,25 @@
+# -----------------------------------------------------
+# -*- coding: utf-8 -*-
+# @Time    : 10/23/2018 2:49 PM
+# @Author  : sunyonghai
+# @Software: ZJ_AI
+# -----------------------------------------------------
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+
 import theano
 import theano.tensor as T
 import types
 
+# def softmax(x):
+#     return K.softmax(x)
+
 def softmax(x):
     return T.nnet.softmax(x)
 
-def softplus(x):
-    return T.nnet.softplus(x)
-
 def relu(x):
     return (x + abs(x)) / 2.0
-
-def tanh(x):
-    return T.tanh(x)
-
-def sigmoid(x):
-    return T.nnet.sigmoid(x)
-
-def hard_sigmoid(x):
-    return T.nnet.hard_sigmoid(x)
 
 def linear(x):
     return x

@@ -1,6 +1,16 @@
-import numpy as np
-import time
+# -----------------------------------------------------
+# -*- coding: utf-8 -*-
+# @Time    : 10/17/2018 2:25 PM
+# @Author  : sunyonghai
+# @Software: ZJ_AI
+# -----------------------------------------------------
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+
 import sys
+import time
+
 
 def get_from_module(identifier, module_params, module_name, instantiate=False):
     if type(identifier) is str:
@@ -12,9 +22,6 @@ def get_from_module(identifier, module_params, module_name, instantiate=False):
         else:
             return res
     return identifier
-
-def make_tuple(*args):
-    return args
 
 class Progbar(object):
     def __init__(self, target, width=30):

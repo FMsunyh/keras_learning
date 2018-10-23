@@ -1,4 +1,13 @@
+# -----------------------------------------------------
 # -*- coding: utf-8 -*-
+# @Time    : 10/23/2018 3:41 PM
+# @Author  : sunyonghai
+# @Software: ZJ_AI
+# -----------------------------------------------------
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+
 import theano
 import theano.tensor as T
 from theano.tensor.signal import downsample
@@ -15,16 +24,15 @@ from ..layers.core import Layer
 
 
 class Convolution2D(Layer):
-    def __init__(self, nb_filter, stack_size, nb_row, nb_col, 
-        init='uniform', activation='linear', weights=None, 
-        image_shape=None, border_mode='valid', subsample=(1,1)):
-
+    def __init__(self, nb_filter, stack_size, nb_row, nb_col,
+                 init='uniform', activation='linear', weights=None,
+                 image_shape=None, border_mode='valid', subsample=(1, 1)):
         self.init = initializations.get(init)
         self.activation = activations.get(activation)
         self.subsample = subsample
         self.border_mode = border_mode
         self.image_shape = image_shape
-        
+
         self.input = T.tensor4()
         self.W_shape = (nb_filter, stack_size, nb_row, nb_col)
         self.W = self.init(self.W_shape)
@@ -38,8 +46,9 @@ class Convolution2D(Layer):
     def output(self, train):
         X = self.get_input(train)
 
-        conv_out = theano.tensor.nnet.conv.conv2d(X, self.W, 
-            border_mode=self.border_mode, subsample=self.subsample, image_shape=self.image_shape)
+        conv_out = theano.tensor.nnet.conv.conv2d(X, self.W,
+                                                  border_mode=self.border_mode, subsample=self.subsample,
+                                                  image_shape=self.image_shape)
         output = self.activation(conv_out + self.b.dimshuffle('x', 0, 'x', 'x'))
         return output
 
@@ -56,7 +65,3 @@ class MaxPooling2D(Layer):
         output = downsample.max_pool_2d(X, self.poolsize, ignore_border=self.ignore_border)
         # output = pool_2d(X, self.poolsize, ignore_border=self.ignore_border)
         return output
-
-
-# class ZeroPadding2D(Layer): TODO
-        
